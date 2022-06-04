@@ -49,6 +49,11 @@ function RageUI.PoolMenus:Menu()
                 NCS.Player:spawn(coords)
             end
         end)
+        Items:AddButton("Show coords", false, { IsDisabled = false }, function(onSelected)
+            if (onSelected) then
+                showCoordsPed = not showCoordsPed
+            end
+        end)
     end, function()
     end)
 
@@ -142,6 +147,37 @@ function RageUI.PoolMenus:Menu()
     end, function()
     end)
 end
+
+function DrawText2D(x, y, width, height, text, r, g, b, a, outline)
+    SetTextFont(7)
+    SetTextProportional(0)
+    SetTextScale(0.4, 0.4)
+    SetTextColour(r, g, b, a)
+    SetTextDropShadow(0, 0, 0, 0,255)
+    SetTextEdge(1, 0, 0, 0, 255)
+    SetTextDropShadow()
+    SetTextOutline()
+    SetTextEntry("STRING")
+    AddTextComponentString(text)
+    DrawText(x - width/2, y - height/2 + 0.005)
+end
+
+CreateThread(function()
+    while true do
+        if showCoordsPed then
+            time = 3
+            local plyCoords = GetEntityCoords(PlayerPedId())
+            local plyHeading = GetEntityHeading(PlayerPedId())
+            DrawText2D(0.66, 1.345, 1.0,1.0, " ~o~H ~s~: " ..string.format( "%6.3f", plyHeading), 255, 255, 255, 255)
+            DrawText2D(0.66, 1.37, 1.0,1.0, " ~o~X ~s~: " ..string.format( "%6.3f", plyCoords.x), 255, 255, 255, 255)
+            DrawText2D(0.66, 1.395, 1.0,1.0, " ~o~Y ~s~: "..string.format( "%6.3f", plyCoords.y), 255, 255, 255, 255)
+            DrawText2D(0.66, 1.42, 1.0,1.0, " ~o~Z ~s~: "..string.format( "%6.3f", plyCoords.z), 255, 255, 255, 255)
+        else
+            time = 500
+        end
+        Wait(time)
+    end
+end)
 
 Keys.Register("F2", "F2", "Dev Menu", function()
     RageUI.Visible(Menu, not RageUI.Visible(Menu))
