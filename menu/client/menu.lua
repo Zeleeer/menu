@@ -11,7 +11,6 @@ Menu.EnableMouse = false
 
 function RageUI.PoolMenus:Menu()
     Menu:IsVisible(function(Items)
-        local ply = PlayerPedId()
         Items:AddButton("Player", false, { IsDisabled = false }, function(onSelected)
             if (onSelected) then
             end
