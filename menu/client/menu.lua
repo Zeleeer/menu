@@ -40,6 +40,15 @@ function RageUI.PoolMenus:Menu()
                 NCS.Player:setMarkerPosition()
             end
         end)
+        Items:AddButton("Respawn", " ", { IsDisabled = false }, function(onSelected)
+            if (onSelected) then
+                coords = {
+                    position = GetEntityCoords(ply),
+                    heading = GetEntityHeading(ply)
+                }
+                NCS.Player:spawn(coords)
+            end
+        end)
     end, function()
     end)
 
