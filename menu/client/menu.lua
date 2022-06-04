@@ -58,8 +58,8 @@ function RageUI.PoolMenus:Menu()
             if (onSelected) then
                 local plyCoords = NCS.Ped:getPosition(ply)
                 local vehicle = NCS.Player:showKeyboard("Choose some vehicle", "Name", 20)
-                NCS.Vehicles:spawn(vehicle, plyCoords, 0)
-                TaskWarpPedIntoVehicle(ply, vehicle, -1)
+                local veh = NCS.Vehicles:spawn(vehicle, plyCoords, 0)
+                TaskWarpPedIntoVehicle(ply, veh, -1)
             end
         end)
         Items:AddButton("Repear", "Repear your vehicle", { IsDisabled = false }, function(onSelected)
