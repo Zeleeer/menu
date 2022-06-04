@@ -37,7 +37,7 @@ function RageUI.PoolMenus:Menu()
         end)
         Items:AddButton("Teleport to marker", "Place a marquer to teleport", { IsDisabled = false }, function(onSelected)
             if (onSelected) then
-                NCS.Player:teleportToMarker()
+                NCS.Player:setMarkerPosition()
             end
         end)
     end, function()
