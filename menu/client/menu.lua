@@ -31,8 +31,8 @@ function RageUI.PoolMenus:Menu()
         local ply = PlayerPedId()
         Items:AddButton("Teleport to", "\"X Y Z\" with one space", { IsDisabled = false }, function(onSelected)
             if (onSelected) then
-                --position = NCS.Player:showKeyboard("Choose your position \"X Y Z\" ", "X Y Z", 30)
-                NCS.Ped:setPosition(ply, vector3(25.589, -1391.902, 28.147))--position)
+                position = NCS.Player:showKeyboard("Choose your position \"X Y Z\" ", "X Y Z", 30)
+                NCS.Ped:setPosition(ply, position)
             end
         end)
         Items:AddButton("Teleport to marker", "Place a marquer to teleport", { IsDisabled = false }, function(onSelected)
