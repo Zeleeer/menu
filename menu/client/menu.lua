@@ -60,7 +60,7 @@ function RageUI.PoolMenus:Menu()
         local ply = PlayerPedId()
         Items:AddButton("Spawn", "Choose your vehicle", { IsDisabled = false }, function(onSelected)
             if (onSelected) then
-                local plyCoords = NCS.Ped:getPosition(ply)
+                local plyCoords = NCS.Entity:getPosition(ply)
                 local vehicle = NCS.Player:showKeyboard("Choose some vehicle", "Name", 20)
                 local veh = NCS.Vehicles:spawn(vehicle, plyCoords, 0)
                 TaskWarpPedIntoVehicle(ply, veh, -1)
@@ -88,7 +88,7 @@ function RageUI.PoolMenus:Menu()
         end)
         Items:AddButton("Delete", "Delete most proximity vehicle", { IsDisabled = false }, function(onSelected)
             if (onSelected) then
-                local plyCoords = NCS.Ped:getPosition(ply)
+                local plyCoords = NCS.Entity:getPosition(ply)
                 local proxVeh, distVeh = NCS.Vehicles:getClosest(plyCoords)
                 if (distVeh < 3) then
                     NCS.Vehicles:delete(proxVeh)
