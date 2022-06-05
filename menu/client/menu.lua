@@ -53,6 +53,11 @@ function RageUI.PoolMenus:Menu()
                 showCoordsPed = not showCoordsPed
             end
         end)
+        Items:AddButton("Print coords (F8)", false, { IsDisabled = false }, function(onSelected)
+            if (onSelected) then
+                print(NCS.Entity:getPosition(PlayerPedId()))
+            end
+        end)
     end, function()
     end)
 
