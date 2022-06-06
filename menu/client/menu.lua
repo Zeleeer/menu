@@ -55,7 +55,7 @@ function RageUI.PoolMenus:Menu()
         end)
         Items:AddButton("Print coords (F8)", false, { IsDisabled = false }, function(onSelected)
             if (onSelected) then
-                print(NCS.Entity:getPosition(PlayerPedId()))
+                NCS:trace(NCS.Entity:getPosition(PlayerPedId()))
             end
         end)
     end, function()
