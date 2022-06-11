@@ -7,6 +7,8 @@ local VehMenu = RageUI.CreateSubMenu(Menu, "Vehicles", " ")
 local WeapMenu = RageUI.CreateSubMenu(Menu, "Weapons", " ")
 local WeapSubMenu = RageUI.CreateSubMenu(WeapMenu, "Component", " ")
 
+local showCoordsPed = false
+
 Menu.EnableMouse = false
 
 function RageUI.PoolMenus:Menu()
@@ -31,6 +33,7 @@ function RageUI.PoolMenus:Menu()
         Items:AddButton("Teleport to", "\"X Y Z\" with one space", { IsDisabled = false }, function(onSelected)
             if (onSelected) then
                 position = NCS.Player:showKeyboard("Choose your position \"X Y Z\" ", "X Y Z", 30)
+                if position == nil then return end
                 NCS.Ped:setPosition(ply, position)
             end
         end)
@@ -55,7 +58,7 @@ function RageUI.PoolMenus:Menu()
         end)
         Items:AddButton("Print coords (F8)", false, { IsDisabled = false }, function(onSelected)
             if (onSelected) then
-                NCS:trace(NCS.Entity:getPosition(PlayerPedId()))
+                print(NCS.Entity:getPosition(PlayerPedId()))
             end
         end)
     end, function()
@@ -67,6 +70,7 @@ function RageUI.PoolMenus:Menu()
             if (onSelected) then
                 local plyCoords = NCS.Entity:getPosition(ply)
                 local vehicle = NCS.Player:showKeyboard("Choose some vehicle", "Name", 20)
+                if vehicle == nil or vehicle == '' then return end
                 local veh = NCS.Vehicles:spawn(vehicle, plyCoords, 0)
                 TaskWarpPedIntoVehicle(ply, veh, -1)
             end
@@ -108,12 +112,14 @@ function RageUI.PoolMenus:Menu()
         Items:AddButton("Choose", "Choose your weapon", { IsDisabled = false }, function(onSelected)
             if (onSelected) then
                 local weapon = NCS.Player:showKeyboard("Choose some weapon","weapon_", 20)
+                if weapon == nil then return end
                 NCS.Ped:giveWeapon(ply, weapon, 500, false, true)
             end
         end)
         Items:AddButton("Remove", "Choose weapon to remove", { IsDisabled = false }, function(onSelected)
             if (onSelected) then
                 local weapon = NCS.Player:showKeyboard("Choose some weapon to remove","weapon_", 20)
+                if weapon == nil then return end
                 NCS.Ped:removeWeapon(ply, weapon)
             end
         end)
@@ -129,8 +135,10 @@ function RageUI.PoolMenus:Menu()
         Items:AddButton("Choose a component", "Typ your choose", { IsDisabled = false }, function(onSelected)
             if (onSelected) then
                 weapon = NCS.Player:showKeyboard("Choose your weapon", "weapon_", 20)
+                if weapon == nil then return end
                 if NCS.Ped:hasWeapon(ply, weapon) then
                     weaponComponent = NCS.Player:showKeyboard("Choose your component to add", "COMPONENT_", 30)
+                    if weaponComponent == nil then return end
                     NCS.Ped:giveWeaponComponent(ply, weapon, weaponComponent)
                 end
             end
@@ -138,8 +146,10 @@ function RageUI.PoolMenus:Menu()
         Items:AddButton("Remove a component", "Open a list for choose", { IsDisabled = false }, function(onSelected)
             if (onSelected) then
                 weapon = NCS.Player:showKeyboard("Choose your weapon", "weapon_", 20)
+                if weapon == nil then return end
                 if NCS.Ped:hasWeapon(ply, weapon) then
                     weaponComponent = NCS.Player:showKeyboard("Choose your component to remove", "COMPONENT_", 30)
+                    if weaponComponent == nil then return end
                     NCS.Ped:removeWeaponComponent(ply, weapon, weaponComponent)
                 end
             end
